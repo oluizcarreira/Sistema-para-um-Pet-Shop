@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Painel Pet Shop{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .user-greeting {
+            color: #023e54;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
+         .alert-container {
+            padding: 0 20px;
+            max-width: 1100px;
+            margin: 15px auto 0 auto;
+        }
+        .alert {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            color: white;
+            font-size: 0.95em;
+        }
+        .alert-danger { background-color: #dc3545; }
+        .alert-success { background-color: #28a745; }
+        .alert-warning { background-color: #ffc107; color: #212529; border: 1px solid #ff9800; }
+        .alert-info { background-color: #17a2b8; }
+    </style>
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header class="menu"> <div class="menu-left">
+            <a href="{{ url_for('list_documents') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Pet Shop">
+            </a>
+        </div>
+        <div class="menu-right">
+            {% if session.user_id %}
+                <span class="user-greeting">Olá, {{ session.username }}!</span>
+                <a href="{{ url_for('list_documents') }}">Painel</a>
+                <a href="{{ url_for('create') }}">Novo Cadastro</a>
+                <a href="{{ url_for('logout') }}" style="background-color: #dc3545;">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Registrar</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <div class="alert-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </div>
+
+    <main class="container"> {% block content %}
+        {% endblock %}
+    </main>
+
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>

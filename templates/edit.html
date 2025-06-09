@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Cadastro - PET SHOP{% endblock %}
+
+{% block head_extra %}
+<style>
+    .form-container {
+        background: white;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        max-width: 700px;
+        margin: 30px auto;
+    }
+    .form-container h1 {
+        text-align: center;
+        color: #026781;
+        margin-bottom: 25px;
+        font-size: 1.8em;
+    }
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0 20px;
+    }
+    @media (min-width: 600px) {
+        .form-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #333;
+        font-size: 0.95em;
+    }
+    .input-full, .form-container select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1em;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .input-full:focus, .form-container select:focus {
+        border-color: #027a99;
+        box-shadow: 0 0 0 0.2rem rgba(2, 122, 153, 0.25);
+        outline: none;
+    }
+    .form-footer {
+        text-align: center;
+        margin-top: 30px;
+        grid-column: 1 / -1;
+    }
+    .form-footer .action-button {
+        padding: 12px 25px;
+        font-size: 1.05em;
+    }
+    .form-footer .action-button.cancel {
+        background-color: #6c757d;
+        margin-left: 10px;
+    }
+    .form-footer .action-button.cancel:hover {
+        background-color: #5a6268;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Editar Cadastro de: {{ document.nome_animal or 'Animal' }}</h1>
+
+    <form method="post" action="{{ url_for('edit', id=id) }}"> {# id é passado pela rota #}
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nome_dono">Nome do Dono</label>
+                <input type="text" id="nome_dono" name="nome_dono" class="input-full" value="{{ document.nome_dono or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cpf_dono">CPF do Dono</label>
+                <input type="text" id="cpf_dono" name="cpf_dono" class="input-full" value="{{ document.cpf_dono or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipo_animal">Tipo de Animal</label>
+                <select id="tipo_animal" name="tipo_animal" class="input-full" required>
+                    <option value="Cachorro" {% if document.tipo_animal == 'Cachorro' %}selected{% endif %}>Cachorro</option>
+                    <option value="Gato" {% if document.tipo_animal == 'Gato' %}selected{% endif %}>Gato</option>
+                    <option value="Pássaro" {% if document.tipo_animal == 'Pássaro' %}selected{% endif %}>Pássaro</option>
+                    <option value="Roedor" {% if document.tipo_animal == 'Roedor' %}selected{% endif %}>Roedor</option>
+                    <option value="Outro" {% if document.tipo_animal == 'Outro' %}selected{% endif %}>Outro</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="nome_animal">Nome do Animal</label>
+                <input type="text" id="nome_animal" name="nome_animal" class="input-full" value="{{ document.nome_animal or '' }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data_nascimento_animal">Data de Nascimento do Animal</label>
+                <input type="date" id="data_nascimento_animal" name="data_nascimento_animal" class="input-full" value="{{ document.data_nascimento_animal_str or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="raca_animal">Raça do Animal</label>
+                <input type="text" id="raca_animal" name="raca_animal" class="input-full" value="{{ document.raca_animal or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone" class="input-full" value="{{ document.telefone or '' }}" placeholder="(XX) XXXXX-XXXX">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="input-full" value="{{ document.email or '' }}" placeholder="exemplo@dominio.com">
+            </div>
+        </div> <!-- Fim .form-grid -->
+        
+        <h2 style="font-size: 1.4em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:center; grid-column: 1 / -1;">Endereço</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="endereco">Endereço (Rua, N°)</label>
+                <input type="text" id="endereco" name="endereco" class="input-full" value="{{ document.endereco or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" name="bairro" class="input-full" value="{{ document.bairro or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="cidade">Cidade</label>
+                <input type="text" id="cidade" name="cidade" class="input-full" value="{{ document.cidade or '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="estado">Estado (UF)</label>
+                <input type="text" id="estado" name="estado" class="input-full" value="{{ document.estado or '' }}" maxlength="2" placeholder="Ex: SP">
+            </div>
+        </div>
+
+        <div class="form-footer">
+            <input type="submit" value="Salvar Alterações" class="action-button edit">
+            <a href="{{ url_for('detail', id=id) }}" class="action-button cancel">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

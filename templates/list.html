@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CADASTROS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .actions {
+            white-space: nowrap;
+        }
+
+        .action-button {
+            display: inline-block;
+            margin-right: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-button.detail {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .action-button.detail:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .action-button.edit {
+            background-color: #28a745;
+            color: white;
+            border-color: #28a745;
+        }
+
+        .action-button.edit:hover {
+            background-color: #1e7e34;
+            border-color: #1e7e34;
+        }
+
+        .action-button.delete {
+            background-color: #dc3545;
+            color: white;
+            border-color: #dc3545;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .action-button.delete:hover {
+            background-color: #b02a37;
+        }
+
+        form.inline-button {
+            display: inline;
+            margin: 0;
+        }
+
+        .filter-form-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            color: #333;
+        }
+
+        .filter-group input[type="text"],
+        .filter-group input[type="date"] {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .filter-form-container .search-form input[type="submit"],
+        .filter-form-container .search-form button {
+            height: auto;
+            padding: 9px 15px;
+        }
+
+        th.sortable a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        th.sortable a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .sort-indicator {
+            margin-left: 5px;
+            font-size: 0.9em;
+            color: #000000;
+        }
+
+        th.active-sort {
+            background-color: #e9ecef;
+            color: #000000
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="menu">
+        <div class="menu-left">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" /> </a>
+        </div>
+        <div class="menu-right">
+            <a href="{{ url_for('create') }}">Cadastrar</a> <a href="{{ url_for('list_documents') }}">Pesquisar</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <br>
+        <h1>CADASTROS</h1>
+        <form method="GET" action="{{ url_for('list_documents') }}" class="search-form filter-form-container">
+            <div class="filter-group">
+                <label for="search">Pesquisar Nome Dono/Animal:</label>
+                <input type="text" name="search" id="search" value="{{ search_query or '' }}"
+                    placeholder="Nome do dono ou animal" />
+            </div>
+
+            <div class="filter-group">
+                <label for="tipo_animal">Filtrar por Tipo de Animal:</label>
+                <input type="text" name="tipo_animal" id="tipo_animal" value="{{ tipo_animal_filter or '' }}"
+                    placeholder="Ex: Cachorro, Gato" />
+            </div>
+
+            <div class="filter-group">
+                <label for="data_nasc_fim">Nascido Antes de:</label>
+                <input type="date" name="data_nasc_fim" id="data_nasc_fim" value="{{ data_nasc_fim_filter or '' }}" />
+            </div>
+
+            <div class="filter-group">
+                <label for="data_nasc_inicio">Nascido Após:</label>
+                <input type="date" name="data_nasc_inicio" id="data_nasc_inicio"
+                    value="{{ data_nasc_inicio_filter or '' }}" />
+            </div>
+
+            {% if current_sort_by %}
+            <input type="hidden" name="sort_by" value="{{ current_sort_by }}">
+            {% endif %}
+            {% if current_sort_order %}
+            <input type="hidden" name="sort_order" value="{{ current_sort_order }}">
+            {% endif %}
+
+            <input type="submit" value="Buscar / Filtrar" /> <button type="button"
+                onclick="window.location.href='{{ url_for('list_documents') }}'">Limpar Filtros</button>
+        </form>
+
+        <div class="create-wrapper"> <a href="{{ url_for('create') }}" class="create-button">Criar Novo</a> </div>
+
+        {% if documents %}
+        <table>
+            <thead>
+                <tr>
+                    {% macro sortable_th(field_name, display_name, current_sort_by, current_sort_order, search_query,
+                    tipo_animal_filter, data_nasc_inicio_filter, data_nasc_fim_filter) %}
+                    {% set next_order = 'desc' if current_sort_by == field_name and current_sort_order == 'asc' else
+                    'asc' %}
+                    <th class="sortable {% if current_sort_by == field_name %}active-sort{% endif %}">
+                        <a href="{{ url_for('list_documents', 
+                                            search=search_query, 
+                                            sort_by=field_name, 
+                                            sort_order=next_order,
+                                            tipo_animal=tipo_animal_filter,
+                                            data_nasc_inicio=data_nasc_inicio_filter,
+                                            data_nasc_fim=data_nasc_fim_filter
+                                        ) }}">
+                            {{ display_name }}
+                            {% if current_sort_by == field_name %}
+                            <span class="sort-indicator">
+                                {{ '▲' if current_sort_order == 'asc' else '▼' }}
+                            </span>
+                            {% endif %}
+                        </a>
+                    </th>
+                    {% endmacro %}
+
+                    {{ sortable_th('nome_animal', 'Animal', current_sort_by, current_sort_order, search_query,
+                    tipo_animal_filter, data_nasc_inicio_filter, data_nasc_fim_filter) }}
+                    {{ sortable_th('nome_dono', 'Dono', current_sort_by, current_sort_order, search_query,
+                    tipo_animal_filter, data_nasc_inicio_filter, data_nasc_fim_filter) }} {{ sortable_th('raca_animal',
+                    'Raça', current_sort_by, current_sort_order, search_query, tipo_animal_filter,
+                    data_nasc_inicio_filter, data_nasc_fim_filter) }}
+                    {{ sortable_th('data_nascimento_animal', 'Nascimento', current_sort_by, current_sort_order,
+                    search_query, tipo_animal_filter, data_nasc_inicio_filter, data_nasc_fim_filter) }}
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doc in documents %} <tr>
+                    <td><strong>{{ doc.nome_animal or 'N/A' }}</strong></td>
+                    <td>{{ doc.nome_dono or 'N/A' }}</td>
+                    <td>{{ doc.raca_animal or 'N/A' }}</td>
+                    <td>
+                        {% if doc.data_nascimento_animal and doc.data_nascimento_animal is not none %}
+                        {{ doc.data_nascimento_animal.strftime('%d/%m/%Y') }} {% else %}
+                        N/A
+                        {% endif %}
+                    </td>
+                    <td class="actions"> <a href="{{ url_for('detail', id=doc._id) }}"
+                            class="action-button detail">Detalhes</a> <a href="{{ url_for('edit', id=doc._id) }}"
+                            class="action-button edit">Editar</a>
+                        <form method="post" action="{{ url_for('delete', id=doc._id) }}" class="inline-button"
+                            onsubmit="return confirm('Tem certeza que deseja deletar este item?');"> <button
+                                type="submit" class="action-button delete">Deletar</button> </form>
+                    </td>
+                </tr>
+                {% else %} <tr>
+                    <td colspan="5">Nenhum documento encontrado com os filtros atuais.</td>
+                </tr> {% endfor %} </tbody>
+        </table>
+        {% else %} <p>A coleção está vazia ou nenhum documento corresponde à busca.</p> {% endif %}
+
+    </div>
+    <br><br>
+
+</body>
+
+</html>

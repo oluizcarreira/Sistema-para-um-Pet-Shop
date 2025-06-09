@@ -1,0 +1,10 @@
+# Virtual environment
+.venv/
+venv/
+__pycache__/
+
+# Arquivos de ambiente
+.env
+
+# Json BD
+bdVet.petshop.json

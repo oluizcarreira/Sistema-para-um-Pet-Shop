@@ -1,0 +1,239 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.menu {
+  width: 100%;
+  background-color: #fac833;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.menu-left img {
+  height: 120px;
+  object-fit: contain;
+}
+
+.menu-right a {
+  margin-left: 20px;
+  background-color: rgb(2, 103, 255);
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 10px 20px;
+  border: 0px solid white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-right a:hover,
+.menu-right a:focus {
+  background-color: white;
+  color: #0933d8;
+  outline: none;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-form label {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.search-form input[type="text"] {
+  width: 280px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s;
+}
+
+.search-form input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.search-form input[type="submit"],
+.search-form button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  height: 40px;
+}
+
+.search-form input[type="submit"]:hover,
+.search-form button:hover,
+.search-form input[type="submit"]:focus,
+.search-form button:focus {
+  background-color: #2980b9;
+  outline: none;
+}
+
+.create-wrapper {
+  margin: 30px 0 20px 0;
+  text-align: left;
+}
+
+.create-button {
+  display: inline-block;
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.create-button:hover,
+.create-button:focus {
+  background-color: #218838;
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+thead {
+  background-color: #3498db;
+  color: white;
+}
+
+thead th {
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.actions {
+  white-space: nowrap;
+  display: flex;
+  gap: 8px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: background-color 0.3s, border-color 0.3s;
+  line-height: 1.2;
+  color: white;
+}
+
+.action-button.detail {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.action-button.detail:hover,
+.action-button.detail:focus {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  outline: none;
+}
+
+.action-button.edit {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.action-button.edit:hover,
+.action-button.edit:focus {
+  background-color: #1e7e34;
+  border-color: #1e7e34;
+  outline: none;
+}
+
+.action-button.delete {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  border: none;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+.action-button.delete:hover,
+.action-button.delete:focus {
+  background-color: #b02a37;
+  outline: none;
+}
+
+form.inline-button {
+  display: inline;
+  margin: 0;
+}

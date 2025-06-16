@@ -41,7 +41,6 @@
             {% if session.user_id %}
                 <span class="user-greeting">Olá, {{ session.username }}!</span>
                 <a href="{{ url_for('list_documents') }}">Painel</a>
-                <a href="{{ url_for('create') }}">Novo Cadastro</a>
                 <a href="{{ url_for('logout') }}" style="background-color: #dc3545;">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}">Login</a>

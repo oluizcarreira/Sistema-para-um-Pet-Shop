@@ -74,6 +74,11 @@
             background-color: #b02a37;
         }
 
+        .menu-right {
+            display: flex;
+            align-items: center;
+        }
+
         form.inline-button {
             display: inline;
             margin: 0;
@@ -135,20 +140,33 @@
             background-color: #e9ecef;
             color: #000000
         }
+        .user-greeting {
+            color: #023e54;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 0.95em;
+        }
     </style>
 </head>
 
 <body>
 
-    <div class="menu">
-        <div class="menu-left">
-            <a href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" /> </a>
+    <header class="menu"> <div class="menu-left">
+            <a href="{{ url_for('list_documents') }}">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Pet Shop">
+            </a>
         </div>
         <div class="menu-right">
-            <a href="{{ url_for('create') }}">Cadastrar</a> <a href="{{ url_for('list_documents') }}">Pesquisar</a>
+            {% if session.user_id %}
+                <span class="user-greeting">Olá, {{ session.username }}!</span>
+                <a href="{{ url_for('list_documents') }}">Painel</a>
+                <a href="{{ url_for('logout') }}" style="background-color: #dc3545;">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login</a>
+                <a href="{{ url_for('register') }}">Registrar</a>
+            {% endif %}
         </div>
-    </div>
+    </header>
 
     <div class="container">
         <br>
@@ -166,16 +184,19 @@
                     placeholder="Ex: Cachorro, Gato" />
             </div>
 
-            <div class="filter-group">
-                <label for="data_nasc_fim">Nascido Antes de:</label>
-                <input type="date" name="data_nasc_fim" id="data_nasc_fim" value="{{ data_nasc_fim_filter or '' }}" />
-            </div>
-
+            <!-- INÍCIO DA ALTERAÇÃO -->
+            <!-- Os campos de data foram invertidos para melhor lógica. -->
             <div class="filter-group">
                 <label for="data_nasc_inicio">Nascido Após:</label>
                 <input type="date" name="data_nasc_inicio" id="data_nasc_inicio"
                     value="{{ data_nasc_inicio_filter or '' }}" />
             </div>
+
+            <div class="filter-group">
+                <label for="data_nasc_fim">Nascido Antes de:</label>
+                <input type="date" name="data_nasc_fim" id="data_nasc_fim" value="{{ data_nasc_fim_filter or '' }}" />
+            </div>
+            <!-- FIM DA ALTERAÇÃO -->
 
             {% if current_sort_by %}
             <input type="hidden" name="sort_by" value="{{ current_sort_by }}">

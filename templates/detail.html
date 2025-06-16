@@ -12,24 +12,28 @@
         max-width: 750px;
         margin: 30px auto;
     }
+
     .details-container h1 {
         text-align: center;
         color: #026781;
         margin-bottom: 30px;
         font-size: 1.8em;
     }
+
     .details-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 15px 25px;
         margin-bottom: 25px;
     }
+
     .detail-item {
         background-color: #f8f9fa;
         padding: 15px;
         border-radius: 6px;
         border-left: 4px solid #027a99;
     }
+
     .detail-item strong {
         display: block;
         color: #025062;
@@ -37,16 +41,19 @@
         font-size: 0.9em;
         text-transform: uppercase;
     }
+
     .detail-item span {
         font-size: 1.05em;
         color: #333;
     }
+
     .actions-footer {
         text-align: center;
         margin-top: 30px;
         padding-top: 20px;
         border-top: 1px solid #eee;
     }
+
     .actions-footer .action-button {
         margin: 0 8px;
         padding: 10px 20px;
@@ -77,7 +84,8 @@
         </div>
         <div class="detail-item">
             <strong>Data de Nascimento:</strong>
-            <span>{{ document.data_nascimento_animal.strftime('%d/%m/%Y') if document.data_nascimento_animal else 'Não informada' }}</span>
+            <span>{{ document.data_nascimento_animal.strftime('%d/%m/%Y') if document.data_nascimento_animal else 'Não
+                informada' }}</span>
         </div>
         <div class="detail-item">
             <strong>Raça do Animal:</strong>
@@ -93,7 +101,9 @@
         </div>
     </div>
 
-    <h2 style="font-size: 1.5em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:left; border-bottom: 2px solid #fac833; padding-bottom: 5px;">Endereço</h2>
+    <h2
+        style="font-size: 1.5em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:left; border-bottom: 2px solid #fac833; padding-bottom: 5px;">
+        Endereço</h2>
     <div class="details-grid">
         <div class="detail-item">
             <strong>Logradouro:</strong>
@@ -112,8 +122,10 @@
             <span>{{ document.estado or 'Não informado' }}</span>
         </div>
     </div>
-    
-    <h2 style="font-size: 1.5em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:left; border-bottom: 2px solid #fac833; padding-bottom: 5px;">Informações de Registro</h2>
+
+    <h2
+        style="font-size: 1.5em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:left; border-bottom: 2px solid #fac833; padding-bottom: 5px;">
+        Informações de Registro</h2>
     <div class="details-grid">
         {% if document.cadastrado_por_username %}
         <div class="detail-item">
@@ -143,9 +155,11 @@
 
 
     <div class="actions-footer">
-        <a href="{{ url_for('list_documents') }}" class="action-button detail" style="background-color: #6c757d;">Voltar à Lista</a>
+        <a href="{{ url_for('list_documents') }}" class="action-button detail" style="background-color: #6c757d;">Voltar
+            à Lista</a>
         <a href="{{ url_for('edit', id=document._id) }}" class="action-button edit">Editar Cadastro</a>
-        <form class="inline-button" method="POST" action="{{ url_for('delete', id=document._id) }}" onsubmit="return confirm('Tem certeza que deseja excluir este cadastro? Esta ação não pode ser desfeita.');">
+        <form class="inline-button" method="POST" action="{{ url_for('delete', id=document._id) }}"
+            onsubmit="return confirm('Tem certeza que deseja excluir este cadastro? Esta ação não pode ser desfeita.');">
             <input type="submit" value="Excluir Cadastro" class="action-button delete">
         </form>
     </div>

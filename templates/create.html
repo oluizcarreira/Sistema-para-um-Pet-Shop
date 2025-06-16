@@ -12,25 +12,30 @@
         max-width: 700px;
         margin: 30px auto;
     }
+
     .form-container h1 {
         text-align: center;
         color: #026781;
         margin-bottom: 25px;
         font-size: 1.8em;
     }
+
     .form-grid {
         display: grid;
         grid-template-columns: 1fr;
         gap: 0 20px;
     }
+
     @media (min-width: 600px) {
         .form-grid {
             grid-template-columns: 1fr 1fr;
         }
     }
+
     .form-group {
         margin-bottom: 20px;
     }
+
     .form-group label {
         display: block;
         font-weight: bold;
@@ -38,7 +43,9 @@
         color: #333;
         font-size: 0.95em;
     }
-    .input-full, .form-container select {
+
+    .input-full,
+    .form-container select {
         width: 100%;
         padding: 10px 12px;
         border: 1px solid #ccc;
@@ -47,25 +54,31 @@
         box-sizing: border-box;
         transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .input-full:focus, .form-container select:focus {
+
+    .input-full:focus,
+    .form-container select:focus {
         border-color: #027a99;
         box-shadow: 0 0 0 0.2rem rgba(2, 122, 153, 0.25);
         outline: none;
     }
+
     .form-footer {
         text-align: center;
         margin-top: 30px;
         grid-column: 1 / -1;
     }
+
     .form-footer .create-button,
     .form-footer .action-button {
         padding: 12px 25px;
         font-size: 1.05em;
     }
+
     .form-footer .action-button.cancel {
         background-color: #6c757d;
         margin-left: 10px;
     }
+
     .form-footer .action-button.cancel:hover {
         background-color: #5a6268;
     }
@@ -80,53 +93,56 @@
         <div class="form-grid">
             <div class="form-group">
                 <label for="nome_dono">Nome do Dono</label>
-                <input type="text" id="nome_dono" name="nome_dono" class="input-full" value="{{ data.nome_dono or '' }}" required>
+                <input type="text" id="nome_dono" name="nome_dono" class="input-full" value="{{ data.nome_dono or '' }}"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="cpf_dono">CPF do Dono</label>
-                <input type="text" id="cpf_dono" name="cpf_dono" class="input-full" value="{{ data.cpf_dono or '' }}" required>
+                <input type="text" id="cpf_dono" name="cpf_dono" class="input-full" value="{{ data.cpf_dono or '' }}"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="tipo_animal">Tipo de Animal</label>
-                <select id="tipo_animal" name="tipo_animal" class="input-full" required>
-                    <option value="" disabled {% if not data.tipo_animal %}selected{% endif %}>Selecione o tipo</option>
-                    <option value="Cachorro" {% if data.tipo_animal == 'Cachorro' %}selected{% endif %}>Cachorro</option>
-                    <option value="Gato" {% if data.tipo_animal == 'Gato' %}selected{% endif %}>Gato</option>
-                    <option value="Pássaro" {% if data.tipo_animal == 'Pássaro' %}selected{% endif %}>Pássaro</option>
-                    <option value="Roedor" {% if data.tipo_animal == 'Roedor' %}selected{% endif %}>Roedor</option>
-                    <option value="Outro" {% if data.tipo_animal == 'Outro' %}selected{% endif %}>Outro</option>
-                </select>
+                <input type="text" id="tipo_animal" name="tipo_animal" class="input-full"
+                    value="{{ data.tipo_animal or '' }}" placeholder="Ex: Cachorro, Gato" required>
             </div>
 
             <div class="form-group">
                 <label for="nome_animal">Nome do Animal</label>
-                <input type="text" id="nome_animal" name="nome_animal" class="input-full" value="{{ data.nome_animal or '' }}" required>
+                <input type="text" id="nome_animal" name="nome_animal" class="input-full"
+                    value="{{ data.nome_animal or '' }}" required>
             </div>
 
             <div class="form-group">
                 <label for="data_nascimento_animal">Data de Nascimento do Animal</label>
-                <input type="date" id="data_nascimento_animal" name="data_nascimento_animal" class="input-full" value="{{ data.data_nascimento_animal or '' }}">
+                <input type="date" id="data_nascimento_animal" name="data_nascimento_animal" class="input-full"
+                    value="{{ data.data_nascimento_animal or '' }}">
             </div>
 
             <div class="form-group">
                 <label for="raca_animal">Raça do Animal</label>
-                <input type="text" id="raca_animal" name="raca_animal" class="input-full" value="{{ data.raca_animal or '' }}">
+                <input type="text" id="raca_animal" name="raca_animal" class="input-full"
+                    value="{{ data.raca_animal or '' }}">
             </div>
 
             <div class="form-group">
                 <label for="telefone">Telefone</label>
-                <input type="tel" id="telefone" name="telefone" class="input-full" value="{{ data.telefone or '' }}" placeholder="(XX) XXXXX-XXXX">
+                <input type="tel" id="telefone" name="telefone" class="input-full" value="{{ data.telefone or '' }}"
+                    placeholder="(XX) XXXXX-XXXX">
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="input-full" value="{{ data.email or '' }}" placeholder="exemplo@dominio.com">
+                <input type="email" id="email" name="email" class="input-full" value="{{ data.email or '' }}"
+                    placeholder="exemplo@dominio.com">
             </div>
         </div>
-        
-        <h2 style="font-size: 1.4em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:center; grid-column: 1 / -1;">Endereço</h2>
+
+        <h2
+            style="font-size: 1.4em; color: #026781; margin-top: 30px; margin-bottom:15px; text-align:center; grid-column: 1 / -1;">
+            Endereço</h2>
         <div class="form-grid">
             <div class="form-group">
                 <label for="endereco">Endereço (Rua, N°)</label>
@@ -145,7 +161,36 @@
 
             <div class="form-group">
                 <label for="estado">Estado (UF)</label>
-                <input type="text" id="estado" name="estado" class="input-full" value="{{ data.estado or '' }}" maxlength="2" placeholder="Ex: SP">
+                <select id="estado" name="estado" class="input-full">
+                    <option value="" disabled {% if not data.estado %}selected{% endif %}>Selecione o Estado</option>
+                    <option value="AC" {% if data.estado=='AC' %}selected{% endif %}>Acre</option>
+                    <option value="AL" {% if data.estado=='AL' %}selected{% endif %}>Alagoas</option>
+                    <option value="AP" {% if data.estado=='AP' %}selected{% endif %}>Amapá</option>
+                    <option value="AM" {% if data.estado=='AM' %}selected{% endif %}>Amazonas</option>
+                    <option value="BA" {% if data.estado=='BA' %}selected{% endif %}>Bahia</option>
+                    <option value="CE" {% if data.estado=='CE' %}selected{% endif %}>Ceará</option>
+                    <option value="DF" {% if data.estado=='DF' %}selected{% endif %}>Distrito Federal</option>
+                    <option value="ES" {% if data.estado=='ES' %}selected{% endif %}>Espírito Santo</option>
+                    <option value="GO" {% if data.estado=='GO' %}selected{% endif %}>Goiás</option>
+                    <option value="MA" {% if data.estado=='MA' %}selected{% endif %}>Maranhão</option>
+                    <option value="MT" {% if data.estado=='MT' %}selected{% endif %}>Mato Grosso</option>
+                    <option value="MS" {% if data.estado=='MS' %}selected{% endif %}>Mato Grosso do Sul</option>
+                    <option value="MG" {% if data.estado=='MG' %}selected{% endif %}>Minas Gerais</option>
+                    <option value="PA" {% if data.estado=='PA' %}selected{% endif %}>Pará</option>
+                    <option value="PB" {% if data.estado=='PB' %}selected{% endif %}>Paraíba</option>
+                    <option value="PR" {% if data.estado=='PR' %}selected{% endif %}>Paraná</option>
+                    <option value="PE" {% if data.estado=='PE' %}selected{% endif %}>Pernambuco</option>
+                    <option value="PI" {% if data.estado=='PI' %}selected{% endif %}>Piauí</option>
+                    <option value="RJ" {% if data.estado=='RJ' %}selected{% endif %}>Rio de Janeiro</option>
+                    <option value="RN" {% if data.estado=='RN' %}selected{% endif %}>Rio Grande do Norte</option>
+                    <option value="RS" {% if data.estado=='RS' %}selected{% endif %}>Rio Grande do Sul</option>
+                    <option value="RO" {% if data.estado=='RO' %}selected{% endif %}>Rondônia</option>
+                    <option value="RR" {% if data.estado=='RR' %}selected{% endif %}>Roraima</option>
+                    <option value="SC" {% if data.estado=='SC' %}selected{% endif %}>Santa Catarina</option>
+                    <option value="SP" {% if data.estado=='SP' %}selected{% endif %}>São Paulo</option>
+                    <option value="SE" {% if data.estado=='SE' %}selected{% endif %}>Sergipe</option>
+                    <option value="TO" {% if data.estado=='TO' %}selected{% endif %}>Tocantins</option>
+                </select>
             </div>
         </div>
 
@@ -155,4 +200,27 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const phoneInput = document.getElementById('telefone');
+
+        phoneInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            value = value.substring(0, 11);
+
+            if (value.length > 10) {
+                value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/^(\d{2})(\d*)/, '($1) $2');
+            } else if (value.length > 0) {
+                value = value.replace(/^(\d*)/, '($1');
+            }
+
+            e.target.value = value;
+        });
+    });
+</script>
 {% endblock %}

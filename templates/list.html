@@ -140,6 +140,7 @@
             background-color: #e9ecef;
             color: #000000
         }
+
         .user-greeting {
             color: #023e54;
             margin-right: 20px;
@@ -151,19 +152,20 @@
 
 <body>
 
-    <header class="menu"> <div class="menu-left">
+    <header class="menu">
+        <div class="menu-left">
             <a href="{{ url_for('list_documents') }}">
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo Pet Shop">
             </a>
         </div>
         <div class="menu-right">
             {% if session.user_id %}
-                <span class="user-greeting">Olá, {{ session.username }}!</span>
-                <a href="{{ url_for('list_documents') }}">Painel</a>
-                <a href="{{ url_for('logout') }}" style="background-color: #dc3545;">Logout</a>
+            <span class="user-greeting">Olá, {{ session.username }}!</span>
+            <a href="{{ url_for('list_documents') }}">Painel</a>
+            <a href="{{ url_for('logout') }}" style="background-color: #dc3545;">Logout</a>
             {% else %}
-                <a href="{{ url_for('login') }}">Login</a>
-                <a href="{{ url_for('register') }}">Registrar</a>
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Registrar</a>
             {% endif %}
         </div>
     </header>
@@ -184,8 +186,6 @@
                     placeholder="Ex: Cachorro, Gato" />
             </div>
 
-            <!-- INÍCIO DA ALTERAÇÃO -->
-            <!-- Os campos de data foram invertidos para melhor lógica. -->
             <div class="filter-group">
                 <label for="data_nasc_inicio">Nascido Após:</label>
                 <input type="date" name="data_nasc_inicio" id="data_nasc_inicio"
